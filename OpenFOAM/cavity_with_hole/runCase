@@ -1,0 +1,26 @@
+#!/bin/bash
+cd ${0%/*} || exit 1    # Run from this directory
+
+if [ $# -eq 0 ]; then
+    mode="s"
+else
+    mode=$1
+fi
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+path=$(pwd)
+appName=$(getApplication)
+
+if [ "$mode" == "p" ]; then
+   nn=6 # Must be the same as in system/decomposeParDict
+   echo "Starting parallel simulation $appName with $nn nodes ..."
+   runApplication decomposePar
+   mpirun -n $nn  $appName -parallel > log.$appName 2>&1 &
+else
+    echo "Starting sequential simulation $appName ..."
+    runApplication $appName &
+fi
+
+#------------------------------------------------------------------------------

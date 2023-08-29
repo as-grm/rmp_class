@@ -1,0 +1,17 @@
+List of cavity tests:
+
+  OpenFOAM solver for cavity cases is icoFoam!
+
+  1. run a simple cavity example in serial
+    - cd cavity
+    - run serial command run_serial.sh
+    - run paraFoam for results preview
+
+  2. run a fine mesh cavity in parallel
+    - run prepare_fine_mesh_case.sh
+    - run parallel command run_parallel.sh
+    - run post_process_parallel.sh for parallel results preview
+
+Preview convergence of simulation:
+ - install gnuplot
+ - run: foamMonitor -l -r 1 $case/postProcessing/residuals/0/residuals.dat
